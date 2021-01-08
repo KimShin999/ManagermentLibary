@@ -2,8 +2,7 @@ package com.example.demo.model.dto.dtoRequest;
 
 import com.example.demo.model.entity.Student;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class BookRequest {
     @JsonProperty("id")
@@ -22,10 +21,10 @@ public class BookRequest {
     private String status;
 
     @JsonProperty("startDay")
-    private Timestamp startDay;
+    private LocalDateTime startDay;
 
     @JsonProperty("endDay")
-    private Timestamp endDay;
+    private LocalDateTime endDay;
 
     public BookRequest() {
     }
@@ -70,19 +69,19 @@ public class BookRequest {
         this.status = status;
     }
 
-    public Timestamp getStartDay() {
+    public LocalDateTime getStartDay() {
         return startDay;
     }
 
-    public void setStartDay(Timestamp startDay) {
+    public void setStartDay(LocalDateTime startDay) {
         this.startDay = startDay;
     }
 
-    public Timestamp getEndDay() {
+    public LocalDateTime getEndDay() {
         return endDay;
     }
 
-    public void setEndDay(Timestamp endDay) {
+    public void setEndDay(LocalDateTime endDay) {
         this.endDay = endDay;
     }
 }

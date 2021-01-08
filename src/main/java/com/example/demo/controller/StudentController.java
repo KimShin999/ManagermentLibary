@@ -2,7 +2,6 @@ package com.example.demo.controller;
 import com.example.demo.model.ResponseData;
 import com.example.demo.model.dto.dtoRequest.StudentRequest;
 import com.example.demo.model.dto.dtoResponse.StudentResponse;
-import com.example.demo.model.entity.Student;
 import com.example.demo.service.student.IStudentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,5 @@
 package com.example.demo.service.book;
-
-import com.example.demo.model.dto.dtoRequest.BookRequest;
+import com.example.demo.model.dto.dtoRequest.BookRequestCreate;
 import com.example.demo.model.dto.dtoResponse.BookResponse;
 import com.example.demo.model.entity.Book;
 import com.example.demo.repository.BookRepository;
@@ -52,8 +51,31 @@ public class BookServiceImpl implements IBookService{
     }
 
     @Override
-    public BookResponse save(BookRequest book) {
+    public List<BookResponse> findAllByStatusAvailable(String availabe) {
+        List<Book> books = bookRepository.findAllByStatus(availabe);
+        List<BookResponse> bookResponses =new ArrayList<>();
+        for ( Book book: books){
+            bookResponse = modelMapper.map(book, BookResponse.class);
+            bookResponses.add(bookResponse);
+        }
+        return bookResponses;
+    }
+
+    @Override
+    public List<BookResponse> findAllByStatusUnAvailable(String unAvailable) {
+        List<Book> books = bookRepository.findAllByStatus(unAvailable);
+        List<BookResponse> bookResponses =new ArrayList<>();
+        for ( Book book: books){
+            bookResponse = modelMapper.map(book, BookResponse.class);
+            bookResponses.add(bookResponse);
+        }
+        return bookResponses;
+    }
+
+    @Override
+    public BookResponse save(BookRequestCreate book) {
         bookEntity = modelMapper.map(book, Book.class);
+        bookEntity.setStatus("Available");
         bookResponse = modelMapper.map(bookRepository.save(bookEntity),BookResponse.class);
         return bookResponse;
     }
