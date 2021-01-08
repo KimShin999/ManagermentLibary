@@ -3,8 +3,7 @@ package com.example.demo.model.dto.dtoResponse;
 import com.example.demo.model.entity.Student;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.stereotype.Component;
-
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Component
 public class BookResponse {
@@ -24,15 +23,15 @@ public class BookResponse {
     private String status;
 
     @JsonProperty("startDay")
-    private Timestamp startDay;
+    private LocalDateTime startDay;
 
     @JsonProperty("endDay")
-    private Timestamp endDay;
+    private LocalDateTime endDay;
 
     public BookResponse() {
     }
 
-    public BookResponse(Long id, String nameBook, String description, Student student, String status, Timestamp startDay, Timestamp endDay) {
+    public BookResponse(Long id, String nameBook, String description, Student student, String status, LocalDateTime startDay, LocalDateTime endDay) {
         this.id = id;
         this.nameBook = nameBook;
         this.description = description;
@@ -82,19 +81,19 @@ public class BookResponse {
         this.status = status;
     }
 
-    public Timestamp getStartDay() {
+    public LocalDateTime getStartDay() {
         return startDay;
     }
 
-    public void setStartDay(Timestamp startDay) {
+    public void setStartDay(LocalDateTime startDay) {
         this.startDay = startDay;
     }
 
-    public Timestamp getEndDay() {
+    public LocalDateTime getEndDay() {
         return endDay;
     }
 
-    public void setEndDay(Timestamp endDay) {
+    public void setEndDay(LocalDateTime endDay) {
         this.endDay = endDay;
     }
 }
