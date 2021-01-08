@@ -13,7 +13,7 @@ public class Student {
     private String name;
     private String email;
     private String numberPhone;
-    @OneToMany(mappedBy = "student",fetch = FetchType.EAGER,targetEntity = Book.class)
+    @OneToMany()
     @JsonIgnoreProperties(value = {"student"})
     private List<Book> books;
     private Boolean checkLegit;

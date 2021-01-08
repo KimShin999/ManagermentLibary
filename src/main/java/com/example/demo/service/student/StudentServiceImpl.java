@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
@@ -61,7 +63,7 @@ public class StudentServiceImpl implements com.example.demo.service.student.IStu
     @Override
     public List<StudentResponse> searchByName(String name) {
         List<Student> students = studentRepository.findAllByNameContaining(name);
-        List<StudentResponse> studentResponses = null;
+        List<StudentResponse> studentResponses = new ArrayList<>();
         for (Student student: students) {
             StudentResponse studentResponse = modelMapper.map(student,StudentResponse.class);
             studentResponses.add(studentResponse);

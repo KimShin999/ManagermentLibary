@@ -15,7 +15,7 @@ public class Book {
     private String nameBook;
     private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     @JsonIgnoreProperties(value = {"books"})
     private Student student;
 
