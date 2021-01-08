@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api")
@@ -45,11 +47,39 @@ public class StudentController {
             responseData.setMessage("save completed "+ studentResponse);
             responseData.setStatus("ok");
         }catch (Exception e){
-           responseData.setStatus("not ok");
+           responseData.setStatus("fail");
            responseData.setData(null);
-           responseData.setMessage("denied");
+           responseData.setMessage("fail");
         }
         return responseData;
         //
+    }
+    @GetMapping("/search/{name}")
+    public ResponseData searchByName(@PathVariable String name){
+        List<StudentResponse> studentResponse = studentService.searchByName(name);
+        if (studentResponse.isEmpty()){
+            responseData.setStatus("Success");
+            responseData.setData(null);
+            responseData.setMessage("not found");
+            return responseData;
+        }
+        responseData.setStatus("Success");
+        responseData.setData(studentResponse);
+        responseData.setMessage("ok");
+        return responseData;
+    }
+    @DeleteMapping("/delete/{id}")
+    public ResponseData deleteById(@PathVariable Long id){
+            StudentResponse studentResponse = studentService.removeById(id);
+            if (studentResponse==null){
+                responseData.setStatus("Fail");
+                responseData.setMessage("Not found");
+                responseData.setData(null);
+                return responseData;
+            }
+            responseData.setStatus("Success");
+            responseData.setMessage("ok");
+            responseData.setData(studentResponse);
+            return responseData;
     }
 }
