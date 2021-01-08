@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Component
@@ -15,13 +15,13 @@ public class Book {
     private String nameBook;
     private String description;
 
-    @ManyToOne()
+    @ManyToOne
     @JsonIgnoreProperties(value = {"books"})
     private Student student;
 
     private String status;
-    private Timestamp startDay;
-    private Timestamp endDay;
+    private LocalDateTime startDay;
+    private LocalDateTime endDay;
 
     public Book() {
     }
@@ -66,19 +66,19 @@ public class Book {
         this.status = status;
     }
 
-    public Timestamp getStartDay() {
+    public LocalDateTime getStartDay() {
         return startDay;
     }
 
-    public void setStartDay(Timestamp startDay) {
+    public void setStartDay(LocalDateTime startDay) {
         this.startDay = startDay;
     }
 
-    public Timestamp getEndDay() {
+    public LocalDateTime getEndDay() {
         return endDay;
     }
 
-    public void setEndDay(Timestamp endDay) {
+    public void setEndDay(LocalDateTime endDay) {
         this.endDay = endDay;
     }
 }

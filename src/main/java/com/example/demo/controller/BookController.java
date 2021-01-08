@@ -9,6 +9,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.service.book.IBookService;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api")
@@ -42,6 +47,20 @@ public class BookController {
     @GetMapping(value = "/findAll")
     public ResponseData findAll(@PageableDefault(size = 3) Pageable pageable){
         Page<BookResponse> bookResponses = iBookService.findAll(pageable);
+        if (bookResponses == null){
+            responseData.setMessage("fail");
+            responseData.setData(bookResponses);
+            responseData.setStatus("NO");
+        }
+        responseData.setData(bookResponses);
+        responseData.setMessage("success");
+        responseData.setStatus("OK");
+        return responseData;
+    }
+
+    @GetMapping(value = "/findByName/{name}")
+    public ResponseData findByName(@PathVariable String name){
+        List<BookResponse> bookResponses = iBookService.findAllByNameBookContaining(name);
         if (bookResponses == null){
             responseData.setMessage("fail");
             responseData.setData(bookResponses);
