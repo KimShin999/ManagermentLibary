@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 
 @Service
@@ -36,6 +38,17 @@ public class BookServiceImpl implements IBookService{
                 return modelMapper.map(book, BookResponse.class);
             }
         });
+    }
+
+    @Override
+    public List<BookResponse> findAllByNameBookContaining(String name) {
+        List<Book> books = bookRepository.findAllByNameBookContaining(name);
+        List<BookResponse> bookResponses =new ArrayList<>();
+        for ( Book book: books){
+            bookResponse = modelMapper.map(book, BookResponse.class);
+            bookResponses.add(bookResponse);
+        }
+        return bookResponses;
     }
 
     @Override

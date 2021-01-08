@@ -6,10 +6,13 @@ import com.example.demo.model.entity.Book;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 
 public interface IBookService {
     Page<BookResponse> findAll(Pageable pageable);
     BookResponse save (BookRequest book);
     BookResponse remove(Long id);
     BookResponse findById(Long id);
+    List<BookResponse> findAllByNameBookContaining(String name);
 }
