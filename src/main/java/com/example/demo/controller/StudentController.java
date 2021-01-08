@@ -69,4 +69,18 @@ public class StudentController {
         responseData.setMessage("ok");
         return responseData;
     }
+    @DeleteMapping("/delete/{id}")
+    public ResponseData deleteById(@PathVariable Long id){
+            StudentResponse studentResponse = studentService.removeById(id);
+            if (studentResponse==null){
+                responseData.setStatus("Fail");
+                responseData.setMessage("Not found");
+                responseData.setData(null);
+                return responseData;
+            }
+            responseData.setStatus("Success");
+            responseData.setMessage("ok");
+            responseData.setData(studentResponse);
+            return responseData;
+    }
 }

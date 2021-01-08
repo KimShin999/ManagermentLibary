@@ -6,7 +6,9 @@ import com.example.demo.repository.StudentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class StudentServiceImpl implements com.example.demo.service.student.IStu
 
     @Override
     public Page<StudentResponse> findAll(Pageable pageable) {
+        pageable = PageRequest.of(0,5 , Sort.by("name"));
         Page<Student> students= studentRepository.findAll(pageable);
         return students.map(new Function<Student, StudentResponse>() {
             @Override
@@ -55,9 +58,15 @@ public class StudentServiceImpl implements com.example.demo.service.student.IStu
 
     @Override
     public StudentResponse removeById(Long id) {
-        Student student = studentRepository.findById(id).get();
-        studentRepository.deleteById(id);
-        return modelMapper.map(student,StudentResponse.class);
+      try {
+          Student student = studentRepository.findById(id).get();
+          StudentResponse studentResponse = modelMapper.map(student,StudentResponse.class);
+          studentRepository.deleteById(id);
+          return studentResponse;
+      }catch (Exception ignored){
+          return null;
+      }
+
     }
 
     @Override
