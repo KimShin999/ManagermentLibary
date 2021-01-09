@@ -16,10 +16,10 @@ import java.util.List;
 public class BookController {
 
     @Autowired
-    IBookService iBookService;
+    private IBookService iBookService;
 
     @Autowired
-    ResponseData responseData;
+    private ResponseData responseData;
 
     String available = "Available";
 
@@ -32,6 +32,7 @@ public class BookController {
             responseData.setMessage("fail");
             responseData.setData(bookResponse);
             responseData.setStatus("NO");
+            return responseData;
         }
         responseData.setData(bookResponse);
         responseData.setMessage("success");
@@ -42,10 +43,11 @@ public class BookController {
     @GetMapping(value = "/findAllBook")
     public ResponseData findAll(@PageableDefault(size = 3) Pageable pageable){
         Page<BookResponse> bookResponses = iBookService.findAll(pageable);
-        if (bookResponses == null){
+        if (bookResponses.isEmpty()){
             responseData.setMessage("fail");
             responseData.setData(bookResponses);
             responseData.setStatus("NO");
+            return responseData;
         }
         responseData.setData(bookResponses);
         responseData.setMessage("success");
@@ -56,10 +58,11 @@ public class BookController {
     @GetMapping(value = "/findBookByName/{name}")
     public ResponseData findByName(@PathVariable String name){
         List<BookResponse> bookResponses = iBookService.findAllByNameBookContaining(name);
-        if (bookResponses == null){
+        if (bookResponses.isEmpty()){
             responseData.setMessage("fail");
             responseData.setData(bookResponses);
             responseData.setStatus("NO");
+            return responseData;
         }
         responseData.setData(bookResponses);
         responseData.setMessage("success");
@@ -70,10 +73,11 @@ public class BookController {
     @GetMapping(value = "/findBookAvailable")
     public ResponseData findBookAvailable(){
         List<BookResponse> bookResponses = iBookService.findAllByStatusAvailable(available);
-        if (bookResponses == null){
+        if (bookResponses.isEmpty()){
             responseData.setMessage("fail");
             responseData.setData(bookResponses);
             responseData.setStatus("NO");
+            return responseData;
         }
         responseData.setData(bookResponses);
         responseData.setMessage("success");
@@ -84,10 +88,11 @@ public class BookController {
     @GetMapping(value = "/findBookUnAvailable")
     public ResponseData findBookUnAvailable(){
         List<BookResponse> bookResponses = iBookService.findAllByStatusUnAvailable(unAvailable);
-        if (bookResponses == null){
+        if (bookResponses.isEmpty()){
             responseData.setMessage("fail");
             responseData.setData(bookResponses);
             responseData.setStatus("NO");
+            return responseData;
         }
         responseData.setData(bookResponses);
         responseData.setMessage("success");

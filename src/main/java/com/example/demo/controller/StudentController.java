@@ -21,8 +21,10 @@ public class StudentController {
 
     @Autowired
     private ResponseData responseData;
+
     @Autowired
     private ModelMapper modelMapper;
+
 
     @GetMapping("/getAll")
     public ResponseData getAll( @PageableDefault(size = 5) Pageable pageable){

@@ -57,6 +57,12 @@ public class StudentServiceImpl implements com.example.demo.service.student.IStu
     }
 
     @Override
+    public StudentResponse saveStudentBorrow(Student student) {
+       StudentResponse studentResponse = modelMapper.map(studentRepository.save(student), StudentResponse.class);
+        return studentResponse;
+    }
+
+    @Override
     public StudentResponse removeById(Long id) {
       try {
           Student student = studentRepository.findById(id).get();
@@ -79,4 +85,6 @@ public class StudentServiceImpl implements com.example.demo.service.student.IStu
         }
         return studentResponses;
     }
+
+
 }
