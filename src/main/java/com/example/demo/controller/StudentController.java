@@ -2,6 +2,7 @@ package com.example.demo.controller;
 import com.example.demo.model.ResponseData;
 import com.example.demo.model.dto.dtoRequest.StudentRequest;
 import com.example.demo.model.dto.dtoResponse.StudentResponse;
+import com.example.demo.model.entity.Student;
 import com.example.demo.service.student.IStudentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class StudentController {
         try{
             StudentResponse studentResponse = studentService.save(studentRequest);
             responseData.setData(studentResponse);
-            responseData.setMessage("save completed "+ studentResponse);
+            responseData.setMessage("save completed ");
             responseData.setStatus("ok");
         }catch (Exception e){
            responseData.setStatus("fail");
@@ -52,7 +53,6 @@ public class StudentController {
            responseData.setMessage("fail");
         }
         return responseData;
-        //
     }
     @GetMapping("/search/{name}")
     public ResponseData searchByName(@PathVariable String name){
@@ -81,5 +81,33 @@ public class StudentController {
             responseData.setMessage("ok");
             responseData.setData(studentResponse);
             return responseData;
+    }
+    @PutMapping("/changeLegit/{id}")
+    public ResponseData changeLegit(@PathVariable Long id){
+        StudentResponse studentResponse = studentService.findById(id);
+            if(studentResponse != null){
+            Student student = modelMapper.map(studentResponse,Student.class);
+            if (student.getCheckLegit() != null){
+                if (student.getCheckLegit()){
+                    student.setCheckLegit(false);
+                    StudentRequest studentRequest = modelMapper.map(student,StudentRequest.class);
+                    studentService.save(studentRequest);
+                    responseData.setData(student);
+                    responseData.setMessage("Ok");
+                    responseData.setStatus("Done");
+                    return responseData;
+                }
+            }
+            student.setCheckLegit(true);
+            studentService.save(modelMapper.map(student,StudentRequest.class));
+            responseData.setData(student);
+            responseData.setMessage("Ok");
+            responseData.setStatus("Done");
+            return responseData;
+        }
+        responseData.setData(null);
+        responseData.setStatus("Fail");
+        responseData.setMessage("Done");
+        return responseData;
     }
 }

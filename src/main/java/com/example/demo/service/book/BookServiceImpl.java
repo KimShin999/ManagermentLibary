@@ -81,6 +81,13 @@ public class BookServiceImpl implements IBookService{
     }
 
     @Override
+    public BookResponse saveBack(Book book) {
+        BookResponse bookResponse = modelMapper.map(book,BookResponse.class);
+        bookRepository.save(book);
+        return bookResponse;
+    }
+
+    @Override
     public BookResponse remove(Long id) {
         bookEntity = bookRepository.findById(id).get();
         bookResponse = modelMapper.map(bookEntity, BookResponse.class);

@@ -13,6 +13,7 @@ import java.util.List;
 public interface IBookService {
     Page<BookResponse> findAll(Pageable pageable);
     BookResponse save (BookRequestCreate book);
+    BookResponse saveBack(Book book);
     BookResponse remove(Long id);
     BookResponse findById(Long id);
     List<BookResponse> findAllByNameBookContaining(String name);
