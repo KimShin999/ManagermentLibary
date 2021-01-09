@@ -47,7 +47,7 @@ public class BusinessController {
             responseData.setMessage(student.getName() + "is not legit");
             return responseData;
         }
-        Book book = modelMapper.map(iBookService.findById(idBook), Book.class);
+        Book book = convertDTO.mapperDTO(iBookService.findById(idBook));
         if (book == null){
             responseData.setMessage("book id: "+ idBook + " is not defind");
             return responseData;

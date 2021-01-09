@@ -23,10 +23,16 @@ public class ConvertDTO {
     private Book bookEntity;
 
     public BookResponse mapperDTO(Book book){
+        if (book == null){
+            return null;
+        }
        return bookResponse = modelMapper.map(book, BookResponse.class);
     }
 
     public Book mapperDTO(BookResponse response){
+        if (response == null){
+            return null;
+        }
         return modelMapper.map(response, Book.class);
     }
 
@@ -36,9 +42,4 @@ public class ConvertDTO {
         }
         return  modelMapper.map(studentResponse, Student.class);
     }
-
-
-
-
-
 }
