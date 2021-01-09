@@ -31,6 +31,9 @@ public class ConvertDTO {
     }
 
     public Student mapperDTO(StudentResponse studentResponse){
+        if (studentResponse == null){
+            return null;
+        }
         return  modelMapper.map(studentResponse, Student.class);
     }
 
