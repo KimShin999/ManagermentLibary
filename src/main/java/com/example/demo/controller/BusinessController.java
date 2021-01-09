@@ -8,23 +8,10 @@ import com.example.demo.service.student.IStudentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import com.example.demo.model.ResponseData;
-import com.example.demo.model.dto.dtoRequest.BookRequest;
 import com.example.demo.model.dto.dtoResponse.BookResponse;
 import com.example.demo.model.dto.dtoResponse.StudentResponse;
-import com.example.demo.model.entity.Book;
-import com.example.demo.model.entity.Student;
-import com.example.demo.service.book.IBookService;
-import com.example.demo.service.student.IStudentService;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.Arrays;
 
 @RestController
@@ -82,19 +69,27 @@ public class BusinessController {
         Student student = convertDTO.mapperDTO(studentService.findById(idStudent)) ;
         if (student == null){
             responseData.setMessage("student id: " +idStudent + " is not defind");
+            responseData.setData(null);
+            responseData.setStatus("false");
             return responseData;
         }
         if (student.getCheckLegit() == false){
             responseData.setMessage(student.getName() + "is not legit");
+            responseData.setData(null);
+            responseData.setStatus("false");
             return responseData;
         }
         Book book = convertDTO.mapperDTO(iBookService.findById(idBook));
         if (book == null){
             responseData.setMessage("book id: "+ idBook + " is not defind");
+            responseData.setData(null);
+            responseData.setStatus("false");
             return responseData;
         }
         if (book.getStatus() == "UnAvailable"){
             responseData.setMessage("book id: "+ idBook + " is UnAvailable");
+            responseData.setData(null);
+            responseData.setStatus("false");
             return responseData;
         }
         book.setStudent(student);
