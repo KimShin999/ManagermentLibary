@@ -113,4 +113,19 @@ public class StudentController {
         responseData.setMessage("Done");
         return responseData;
     }
+    @GetMapping("searchById/{id}")
+    public ResponseData findById(@PathVariable Long id){
+        StudentResponse studentResponse = studentService.findById(id);
+        if (studentResponse != null){
+            responseData.setData(studentResponse);
+            responseData.setMessage("ok");
+            responseData.setStatus("done");
+            return responseData;
+        }
+        responseData.setStatus("Not found");
+        responseData.setMessage("Fail");
+        responseData.setData(null);
+        return  responseData;
+
+    }
 }
