@@ -131,7 +131,7 @@ public class BookServiceImpl implements IBookService{
         if (student == null){
             return null;
         }
-        if (student.getCheckLegit() == false){
+        if (student.getCheckLegit() == false || student.getCheckLegit() == null){
             return null;
         }
         Book book = bookRepository.findById(idBook).get();
