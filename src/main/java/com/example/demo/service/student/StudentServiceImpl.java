@@ -47,6 +47,7 @@ public class StudentServiceImpl implements com.example.demo.service.student.IStu
     @Override
     public StudentResponse save(StudentRequest studentRequest) {
         Student student = modelMapper.map(studentRequest,Student.class);
+//        student.setCheckLegit(true);
         try{
             studentRepository.save(student);
             return modelMapper.map(student,StudentResponse.class);
